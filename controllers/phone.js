@@ -43,3 +43,16 @@ exports.editPhone = async (req, res) => {
     return res.status(400).json({ message: error.message });
   }
 };
+
+exports.deletePhone = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const phoneToDelete = await Phone.findByPk(id);
+    const deletedPhone = await phoneToDelete.destroy({ id });
+    return res
+      .status(202)
+      .json({ message: "ressouces was deleted cuccessfuly" });
+  } catch (error) {
+    return res.json({ message: error.message });
+  }
+};
