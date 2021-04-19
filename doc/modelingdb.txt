@@ -1,0 +1,25 @@
+product 
+   -name
+   -price 
+   -id 
+
+users
+  -phone 
+  -name 
+  -password
+
+
+orders
+ -customername 
+ -customer_phone
+
+
+category
+ -phone 
+ -accessoire
+ -
+
+permissions
+
+user_permissons
+
