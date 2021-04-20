@@ -1,4 +1,6 @@
 const Phone = require("../models/phone");
+const { Sequelize } = require("sequelize");
+const Product = require("../models/product");
 
 exports.addPhone = async (req, res) => {
   try {
@@ -15,7 +17,10 @@ exports.addPhone = async (req, res) => {
 };
 exports.getPhones = async (req, res) => {
   try {
-    const phones = await Phone.findAll({});
+    const phones = await Product.findAll({
+      include: Phone,
+      left: true,
+    });
     if (phones) {
       return res.status(200).json(phones);
     }

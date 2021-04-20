@@ -1,9 +1,8 @@
-const { Sequelize, Model, DataTypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const { sequelize } = require("../config/db");
 
-//class User extends Model {}
-const Phone = sequelize.define(
-  "phone",
+const Location = sequelize.define(
+  "location",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,12 +10,10 @@ const Phone = sequelize.define(
       allowNull: false,
       autoIncrement: true,
     },
-
-    capacity: {
-      type: DataTypes.INTEGER,
+    state: {
+      type: DataTypes.STRING,
     },
   },
-
   sequelize.sync({ alter: true })
 );
-module.exports = Phone;
+module.exports = Location;

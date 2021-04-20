@@ -1,5 +1,6 @@
 const { sequelize } = require("../config/db");
 const Phone = require("../models/phone");
+const User = require("../models/user");
 
 const phones = [
   {
@@ -59,6 +60,16 @@ const phones = [
     description: "Brand new",
   },
 ];
+users = [
+  {
+    name: "Atigh",
+    phone: 33635471,
+  },
+  {
+    name: "Yakoub",
+    phone: 33546573,
+  },
+];
 exports.seedPhone = () => {
   // for (let i = 0; i < phones.length; i++) {
   // await Phone.create(phones[i]);
@@ -72,4 +83,32 @@ exports.seedPhone = () => {
     }
   });
   console.log("seed phone successfuly");
+};
+exports.up = async () => {
+  users.map(async (user) => {
+    return await User.create(user);
+  });
+  const savedUsers = await User.findAll({});
+  phones.map(async (item) => {
+    try {
+      await Phone.create({ ...item, userId: savedUsers[0].id });
+    } catch (error) {
+      console.log(error.message);
+    }
+  });
+};
+exports.down = async () => {
+  console.log("ressource deleted successful", "111111111111111111111111111");
+  try {
+    await Phone.destroy({
+      where: {},
+      truncate: true,
+    });
+    await User.destroy({
+      where: {},
+      truncate: true,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
