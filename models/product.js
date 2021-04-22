@@ -29,6 +29,6 @@ const Product = sequelize.define(
   },
   sequelize.sync({ alter: true })
 );
-Product.hasOne(Phone, { onDelete: "CASCADE", onUpdate: "CASCADE" });
-Phone.belongsTo(Product);
+// Product.hasOne(Phone, { onDelete: "CASCADE", onUpdate: "CASCADE" });
+// Phone.belongsTo(Product);
 module.exports = Product;

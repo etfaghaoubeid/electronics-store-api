@@ -1,6 +1,7 @@
 const Phone = require("../models/phone");
 const { Sequelize } = require("sequelize");
 const Product = require("../models/product");
+const Accessory = require("../models/accessory");
 
 exports.addPhone = async (req, res) => {
   try {
@@ -17,10 +18,7 @@ exports.addPhone = async (req, res) => {
 };
 exports.getPhones = async (req, res) => {
   try {
-    const phones = await Product.findAll({
-      include: Phone,
-      left: true,
-    });
+    const phones = await Phone.findAll({});
     if (phones) {
       return res.status(200).json(phones);
     }
@@ -32,14 +30,23 @@ exports.getPhones = async (req, res) => {
 exports.editPhone = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, price, used, description, image } = req.body;
-    console.log(used, "useeeeeeeeeeeeeeeesd");
+    const {
+      name,
+      price,
+      used,
+      description,
+      image,
+      capacity,
+      inStock,
+    } = req.body;
     const phone = await Phone.findByPk(id);
     phone.name = name || phone.name;
     phone.price = price || phone.price;
     phone.used = used || phone.used;
     phone.description = description || phone.description;
     phone.image = image || image.image;
+    phone.capacity = capacity || image.capacity;
+    phone.capacity = inStock || image.inStock;
     const updatedPhone = await phone.save(phone);
     if (updatedPhone) {
       return res.status(201).json({ updatedPhone });
@@ -61,3 +68,14 @@ exports.deletePhone = async (req, res) => {
     return res.json({ message: error.message });
   }
 };
+// exports.filler = async (req, res) => {
+//   try {
+//     const { sort } = req.params;
+//     const filteredData = await Phone.findAll({ sort });
+//     if (filteredData) {
+//       return res.status().json(filteredData);
+//     }
+//   } catch (error) {
+//     return res.status(500).json({ message: error.massage });
+//   }
+// };

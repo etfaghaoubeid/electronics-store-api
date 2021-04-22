@@ -2,81 +2,89 @@ const { sequelize } = require("../config/db");
 const Phone = require("../models/phone");
 const User = require("../models/user");
 
-const phones = [
+const phonesData = [
   {
-    name: "Iphone 14",
-    price: 450,
+    name: "Iphone 11 pro max",
+    price: 30000,
     image:
       "https://images.pexels.com/photos/4071887/pexels-photo-4071887.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
     used: false,
-    description: "Brand new",
+    description:
+      "iPhone 12 Pro With Facetime 256GB Graphite 5G - Middle East Version",
+    capacity: 256,
+    inStock: true,
   },
   {
-    name: "Iphone 13",
-    price: 340,
+    name: "Iphone X",
+    price: 160,
     image:
       "https://images.pexels.com/photos/4071887/pexels-photo-4071887.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-    used: false,
-    description: "Brand new",
+    used: true,
+    description:
+      "iPhone 12 Pro With Facetime 256GB Graphite 5G - Middle East Version",
+    capacity: 256,
+    inStock: true,
   },
   {
-    name: "Iphone 13",
-    price: 340,
+    name: "Iphone 7plus",
+    price: 11000,
     image:
       "https://images.pexels.com/photos/4071887/pexels-photo-4071887.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
     used: false,
-    description: "Brand new",
+    description:
+      "iPhone 12 Pro With Facetime 256GB Graphite 5G - Middle East Version",
+    capacity: 256,
+    inStock: true,
   },
   {
-    name: "Iphone 13",
-    price: 340,
+    name: "Iphone 12 pro",
+    price: 25000,
     image:
       "https://images.pexels.com/photos/4071887/pexels-photo-4071887.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
     used: false,
-    description: "Brand new",
+    description:
+      "Brand iPhone 12 Pro With Facetime 256GB Graphite 5G - Middle East Version",
+    capacity: 64,
+    inStock: true,
   },
   {
-    name: "Iphone 13",
-    price: 340,
+    name: "Iphone 12 pro",
+    price: 230,
     image:
       "https://images.pexels.com/photos/4071887/pexels-photo-4071887.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-    used: false,
-    description: "Brand new",
+    used: true,
+    description:
+      "iPhone 12 Pro With Facetime 256GB Graphite 5G - Middle East Version new",
+    capacity: 64,
+    inStock: true,
   },
   {
-    name: "Iphone 13",
-    price: 340,
+    name: "Iphone 11 ",
+    price: 19000,
     image:
       "https://images.pexels.com/photos/4071887/pexels-photo-4071887.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-    used: false,
-    description: "Brand new",
+    used: true,
+    description:
+      "BriPhone 12 Pro With Facetime 256GB Graphite 5G - Middle East Versionnd new",
+    capacity: 64,
+    inStock: true,
   },
   {
-    name: "Iphone 13",
-    price: 340,
+    name: "Iphone XR",
+    price: 13000,
     image:
       "https://images.pexels.com/photos/4071887/pexels-photo-4071887.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
     used: false,
-    description: "Brand new",
+    description:
+      "iPhone 12 Pro With Facetime 256GB Graphite 5G - Middle East Version",
+    capacity: 64,
+    inStock: true,
   },
 ];
-users = [
-  {
-    name: "Atigh",
-    phone: 33635471,
-  },
-  {
-    name: "Yakoub",
-    phone: 33546573,
-  },
-];
-exports.seedPhone = () => {
-  // for (let i = 0; i < phones.length; i++) {
-  // await Phone.create(phones[i]);
-  // }
-  phones.map(async (item) => {
+
+exports.seedPhone = async () => {
+  phonesData.map(async (item) => {
     try {
-      console.log(item);
       await Phone.create(item);
     } catch (error) {
       console.log(error.message);
@@ -84,31 +92,8 @@ exports.seedPhone = () => {
   });
   console.log("seed phone successfuly");
 };
-exports.up = async () => {
-  users.map(async (user) => {
-    return await User.create(user);
-  });
-  const savedUsers = await User.findAll({});
-  phones.map(async (item) => {
-    try {
-      await Phone.create({ ...item, userId: savedUsers[0].id });
-    } catch (error) {
-      console.log(error.message);
-    }
-  });
-};
-exports.down = async () => {
-  console.log("ressource deleted successful", "111111111111111111111111111");
-  try {
-    await Phone.destroy({
-      where: {},
-      truncate: true,
-    });
-    await User.destroy({
-      where: {},
-      truncate: true,
-    });
-  } catch (error) {
-    console.log(error);
-  }
+exports.deletePhones = async () => {
+  const res = await Phone.findAll({});
+  const data = await res.json();
+  console.log(data, "1111111111111111111111 deletePhones");
 };

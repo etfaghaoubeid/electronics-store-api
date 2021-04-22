@@ -11,9 +11,27 @@ const Phone = sequelize.define(
       allowNull: false,
       autoIncrement: true,
     },
+    name: {
+      type: DataTypes.STRING,
+    },
+    price: {
+      type: DataTypes.FLOAT,
+    },
+    image: {
+      type: DataTypes.STRING,
+    },
+    description: {
+      type: DataTypes.TEXT,
+    },
+    used: {
+      type: DataTypes.BOOLEAN,
+    },
 
     capacity: {
       type: DataTypes.INTEGER,
+    },
+    inStock: {
+      type: DataTypes.BOOLEAN,
     },
   },
 
