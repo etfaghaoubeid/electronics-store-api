@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "backend": "nodemon app.js",
+    "dev": "nodemon src/index.js",
     "sync:models": "node ./utils/db.js"
   },
   "keywords": [],

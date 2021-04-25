@@ -1,6 +1,4 @@
 const { Sequelize } = require("sequelize");
-// const Phone = require("../models/phone");
-// const User = require("../models/user");
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -9,7 +7,8 @@ const sequelize = new Sequelize(
   {
     // host: process.env.HOST,
     //horst: "192.168.1.1",
-    host: "192.168.132.33",
+    //host: "192.168.132.33"
+    host: "172.18.58.225",
     port: 5555,
     dialect: "postgres",
   }
