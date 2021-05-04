@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { use } = require("../middleware/tryAndCash");
 const {
   getPhones,
   addPhone,
@@ -8,7 +9,7 @@ const {
 } = require("./controller");
 const router = Router();
 
-router.get("/", getPhones);
+router.get("/", use(getPhones));
 router.post("/add-phone", addPhone);
 router.delete("/phone/:id", deletePhone);
 router.get("/phone/:id", getPhone);

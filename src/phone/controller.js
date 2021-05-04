@@ -1,12 +1,12 @@
 const Phone = require("./model");
 
 exports.getPhones = async (req, res) => {
-  try {
-    const phones = await Phone.findAll({});
-    return res.status(200).json(phones);
-  } catch (error) {
-    return res.status(400).json({ message: error.message });
-  }
+  const phones = await Phone.findAll({});
+  // let p = new Promise((resolve , reject)=>{
+  // resolve("")
+  // })
+  await fetch("http://localhost/add");
+  return res.status(200).json(phones);
 };
 
 exports.addPhone = async (req, res) => {
