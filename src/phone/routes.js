@@ -9,7 +9,7 @@ const {
 } = require("./controller");
 const router = Router();
 
-router.get("/", use(getPhones));
+router.get("/", getPhones);
 router.post("/add-phone", addPhone);
 router.delete("/phone/:id", deletePhone);
 router.get("/phone/:id", getPhone);

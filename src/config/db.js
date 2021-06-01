@@ -8,7 +8,7 @@ const sequelize = new Sequelize(
     // host: process.env.HOST,
     //horst: "192.168.1.1",
     //host: "192.168.132.33"
-    host: "172.18.58.225",
+    host: "192.168.1.8",
     port: 5555,
     dialect: "postgres",
   }

@@ -1,12 +1,26 @@
 const Phone = require("./model");
+const getPagination = (page, size) => {
+  const limit = size ? +size : 10;
+  const offset = page ? page * limit : 0;
+  return { limit, offset };
+};
+const getPaginateData = (data, page, limit) => {
+  let { count: totalNumberOfPhones, rows: phones } = data;
+  let currentPage = page ? +page : 0;
+  let totalNumberOfPages = Math.ceil(totalNumberOfPhones / limit);
+  return { currentPage, totalNumberOfPages, totalNumberOfPhones, phones };
+};
 
 exports.getPhones = async (req, res) => {
-  const phones = await Phone.findAll({});
-  // let p = new Promise((resolve , reject)=>{
-  // resolve("")
-  // })
-  await fetch("http://localhost/add");
-  return res.status(200).json(phones);
+  try {
+    const { page, size } = req.query;
+    const { limit, offset } = getPagination(page, size);
+    const data = await Phone.findAndCountAll({ offset, limit });
+    const response = getPaginateData(data, page, limit);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({ message: "something went wrong" });
+  }
 };
 
 exports.addPhone = async (req, res) => {
@@ -35,15 +49,8 @@ exports.getPhone = async (req, res) => {
 exports.editPhone = async (req, res) => {
   try {
     const { id } = req.params;
-    const {
-      name,
-      price,
-      used,
-      description,
-      image,
-      capacity,
-      inStock,
-    } = req.body;
+    const { name, price, used, description, image, capacity, inStock } =
+      req.body;
     const phone = await Phone.findByPk(id);
     phone.name = name || phone.name;
     phone.price = price || phone.price;
