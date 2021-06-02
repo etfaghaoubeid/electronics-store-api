@@ -6,8 +6,14 @@ const getPagination = (page, size) => {
 };
 const getPaginateData = (data, page, limit) => {
   let { count: totalNumberOfPhones, rows: phones } = data;
-  let currentPage = page ? +page : 0;
+  let currentPage = 0;
+
   let totalNumberOfPages = Math.ceil(totalNumberOfPhones / limit);
+  if (page && page < totalNumberOfPages && page >= 0) {
+    currentPage = +page;
+  } else {
+    currentPage = 0;
+  }
   return { currentPage, totalNumberOfPages, totalNumberOfPhones, phones };
 };
 
